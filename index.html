@@ -10,14 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0f1118;
-            --bg-secondary: #161b22;
-            --bg-tertiary: #21262d;
+            --bg-primary: #0a0f18; /* Slightly darker to make neon pop */
+            --bg-secondary: #0f1623;
+            --bg-tertiary: #162032;
             --text-primary: #c9d1d9;
             --text-secondary: #8b949e;
             --text-heading: #f0f6fc;
-            --accent-primary: #58a6ff;
-            --accent-hover: #79c0ff;
+            --accent-primary: #00f0ff; /* Neon cyan */
+            --accent-hover: #58a6ff;
+            --accent-glow: rgba(0, 240, 255, 0.4);
             --border-color: #30363d;
             --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
             --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
@@ -134,6 +135,32 @@
             display: flex;
             align-items: center;
             padding-top: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+            border-radius: 50%;
+            top: -20%;
+            right: -10%;
+            z-index: -1;
+            opacity: 0.6;
+            animation: slowPulse 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes slowPulse {
+            0% { transform: scale(1); opacity: 0.3; }
+            100% { transform: scale(1.15); opacity: 0.6; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
 
         .hero-intro {
@@ -170,12 +197,17 @@
             font-size: 0.9rem;
             border-radius: 4px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             background: transparent;
+            box-shadow: 0 0 10px transparent;
+            text-shadow: 0 0 0 transparent;
         }
 
         .btn:hover {
-            background-color: rgba(88, 166, 255, 0.1);
+            background-color: rgba(0, 240, 255, 0.1);
+            box-shadow: 0 0 15px var(--accent-glow), inset 0 0 10px var(--accent-glow);
+            text-shadow: 0 0 5px var(--accent-glow);
+            transform: translateY(-2px);
         }
 
         /* About & Skills */
@@ -266,11 +298,35 @@
             padding: 2rem;
             display: flex;
             flex-direction: column;
-            transition: transform 0.2s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), #00ff88);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+            z-index: -1;
+            box-shadow: 0 5px 20px var(--accent-glow);
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.15);
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
         }
 
         .project-card h3 {
@@ -367,7 +423,7 @@
 
     <main class="container">
         <section id="hero" class="hero">
-            <div>
+            <div class="hero-content">
                 <span class="hero-intro">Hi, my name is</span>
                 <h1>Daniel Rodriguez Carias.</h1>
                 <h2>I build scalable enterprise software.</h2>
