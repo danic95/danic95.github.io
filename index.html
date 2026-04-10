@@ -10,15 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0a0f18; /* Slightly darker to make neon pop */
-            --bg-secondary: #0f1623;
-            --bg-tertiary: #162032;
+            --bg-primary: #0f1118;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
             --text-primary: #c9d1d9;
             --text-secondary: #8b949e;
             --text-heading: #f0f6fc;
-            --accent-primary: #00f0ff; /* Neon cyan */
-            --accent-hover: #58a6ff;
-            --accent-glow: rgba(0, 240, 255, 0.4);
+            --accent-primary: #58a6ff;
+            --accent-hover: #79c0ff;
             --border-color: #30363d;
             --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
             --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
@@ -135,32 +134,6 @@
             display: flex;
             align-items: center;
             padding-top: 5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
-            border-radius: 50%;
-            top: -20%;
-            right: -10%;
-            z-index: -1;
-            opacity: 0.6;
-            animation: slowPulse 6s ease-in-out infinite alternate;
-        }
-
-        @keyframes slowPulse {
-            0% { transform: scale(1); opacity: 0.3; }
-            100% { transform: scale(1.15); opacity: 0.6; }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
         }
 
         .hero-intro {
@@ -176,6 +149,13 @@
             letter-spacing: -1px;
         }
 
+        .hero-name {
+            background: linear-gradient(90deg, #f0f6fc, var(--accent-hover));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
         .hero h2 {
             font-size: clamp(2rem, 5vw, 3.5rem);
             color: var(--text-secondary);
@@ -186,6 +166,25 @@
             max-width: 540px;
             margin-bottom: 3rem;
             font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .fade-in {
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .fade-in.delay-1 { animation-delay: 0.1s; }
+        .fade-in.delay-2 { animation-delay: 0.2s; }
+        .fade-in.delay-3 { animation-delay: 0.3s; }
+        .fade-in.delay-4 { animation-delay: 0.4s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .btn {
@@ -197,17 +196,12 @@
             font-size: 0.9rem;
             border-radius: 4px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             background: transparent;
-            box-shadow: 0 0 10px transparent;
-            text-shadow: 0 0 0 transparent;
         }
 
         .btn:hover {
-            background-color: rgba(0, 240, 255, 0.1);
-            box-shadow: 0 0 15px var(--accent-glow), inset 0 0 10px var(--accent-glow);
-            text-shadow: 0 0 5px var(--accent-glow);
-            transform: translateY(-2px);
+            background-color: rgba(88, 166, 255, 0.1);
         }
 
         /* About & Skills */
@@ -298,35 +292,13 @@
             padding: 2rem;
             display: flex;
             flex-direction: column;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-primary), #00ff88);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
-            z-index: -1;
-            box-shadow: 0 5px 20px var(--accent-glow);
+            transition: all 0.25s ease;
         }
 
         .project-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent-primary);
-            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.15);
-        }
-
-        .project-card:hover::before {
-            transform: scaleX(1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -15px rgba(88, 166, 255, 0.2);
+            border-color: rgba(88, 166, 255, 0.3);
         }
 
         .project-card h3 {
@@ -423,14 +395,16 @@
 
     <main class="container">
         <section id="hero" class="hero">
-            <div class="hero-content">
-                <span class="hero-intro">Hi, my name is</span>
-                <h1>Daniel Rodriguez Carias.</h1>
-                <h2>I build scalable enterprise software.</h2>
-                <p>
-                    I am a Senior Full-Stack Engineer specializing in backend architecture, system design, and distributed cloud solutions. Currently, I'm focused on developing robust and high-performing applications.
+            <div>
+                <span class="hero-intro fade-in">Hi, my name is</span>
+                <h1 class="fade-in delay-1"><span class="hero-name">Daniel Rodriguez Carias.</span></h1>
+                <h2 class="fade-in delay-2">I architect robust backend systems.</h2>
+                <p class="fade-in delay-3">
+                    I'm a software engineer specializing in system design, distributed architectures, and scalable APIs. I focus on building high-performance backend infrastructure that solves complex data problems under the hood. 
                 </p>
-                <a href="#contact" class="btn">Get In Touch</a>
+                <div class="fade-in delay-4">
+                    <a href="#contact" class="btn">Get In Touch</a>
+                </div>
             </div>
         </section>
 
@@ -439,10 +413,10 @@
             <div class="about-grid">
                 <div class="about-text">
                     <p>
-                        Hello! My name is Daniel, and I enjoy creating software that solves complex business problems. My interest in software development evolved from a curiosity about how things work to a career spanning over 6 years building enterprise-grade applications.
+                        Hello! My name is Daniel, and I love digging into tough technical challenges to build software that runs seamlessly behind the scenes. My programming journey started by taking things apart to see how they worked, and today that translates to over 6 years of experience engineering secure, mission-critical systems.
                     </p>
                     <p>
-                        Over the years, I've had the privilege of working across the financial tech space, aviation maintenance, cooperative banking, and modern SaaS products. While my experience covers the full stack, my core expertise lies in designing scalable backend architectures using C#, Go, and Node.js.
+                        I've spent a large portion of my career inside complex domains—such as fintech infrastructure, aviation systems, and high-throughput SaaS media platforms. Even though I consider myself a full-stack developer, I truly thrive when designing cloud architectures and building resilient APIs using C#, Go, and Node.js.
                     </p>
                     <p>Here are a few technologies I've been working with recently:</p>
                     <ul class="skills-list">
@@ -451,7 +425,7 @@
                         <li>TypeScript</li>
                         <li>React & Angular</li>
                         <li>SQL Server, DB2, MongoDB</li>
-                        <li>Microsoft Azure & Docker</li>
+                        <li>Microsoft Azure, Docker</li>
                     </ul>
                 </div>
             </div>
@@ -466,8 +440,8 @@
                     <span class="experience-date">Oct 2025 - Present</span>
                 </div>
                 <ul>
-                    <li>Leading full-stack development initiatives with a focus on high availability architectures.</li>
-                    <li>Architecting technical solutions to support rapidly scaling internal systems and customer-facing platforms.</li>
+                    <li>Driving architectural decisions for high-availability systems managing multi-layered cloud infrastructures.</li>
+                    <li>Designing robust backend solutions that support the rapid scaling needs of both internal tooling and customer-facing interfaces.</li>
                 </ul>
             </div>
 
@@ -477,8 +451,8 @@
                     <span class="experience-date">May 2025 - Mar 2026</span>
                 </div>
                 <ul>
-                    <li>Spearheaded product enhancements that improved overall system performance and the end-user experience.</li>
-                    <li>Triaged and resolved critical infrastructure issues, significantly maintaining continuous operational uptime.</li>
+                    <li>Delivered key performance improvements across complex legacy codebases, directly enhancing user engagement.</li>
+                    <li>Diagnosed and eliminated critical infrastructure bottlenecks to maintain continuous operational stability.</li>
                 </ul>
             </div>
 
@@ -488,9 +462,9 @@
                     <span class="experience-date">Dec 2024 - Jun 2025</span>
                 </div>
                 <ul>
-                    <li>Designed and implemented features for automated conversational agents targeting streamlined customer support.</li>
-                    <li>Established CI/CD pipelines to facilitate safer, agile, and iterative deployments in a regulated banking environment.</li>
-                    <li>Diagnosed critical legacy bugs, substantially improving systemic stability.</li>
+                    <li>Developed automated customer support flows integrated directly with internal banking systems via secure APIs.</li>
+                    <li>Standardized CI/CD pipelines to ensure safer, faster deployment cycles within a strict regulatory environment.</li>
+                    <li>Refactored legacy services, significantly reducing systemic runtime errors.</li>
                 </ul>
             </div>
 
@@ -500,9 +474,9 @@
                     <span class="experience-date">May 2024 - Nov 2024</span>
                 </div>
                 <ul>
-                    <li>Developed applications to digitize and optimize daily aircraft maintenance workflows, easing management overhead.</li>
-                    <li>Expanded the functionality of the core administrative module, facilitating better resource allocation metrics.</li>
-                    <li>Integrated real-time third-party data services via secure REST APIs.</li>
+                    <li>Modernized daily aircraft maintenance workflows by digitizing paper trails, saving hundreds of administrative hours.</li>
+                    <li>Expanded the core metrics module to provide better visibility into cross-department resource allocation.</li>
+                    <li>Set up secure real-time integrations with third-party aviation data providers.</li>
                 </ul>
             </div>
 
@@ -512,9 +486,9 @@
                     <span class="experience-date">May 2021 - Apr 2023</span>
                 </div>
                 <ul>
-                    <li>Engineered high-throughput, horizontally scalable API microservices utilizing Golang.</li>
-                    <li>Successfully migrated monolithic applications previously written in Java and Python into modern Go microservices.</li>
-                    <li>Delivered backend systems supporting intensive media uploads for a dedicated photography platform.</li>
+                    <li>Built extremely high-throughput, horizontally scalable API microservices in Go.</li>
+                    <li>Managed the transition of rigid Java and Python monoliths into a modern service-oriented Go architecture.</li>
+                    <li>Maintained the backend infrastructure supporting large-scale, concurrent media uploads for a dedicated photography platform.</li>
                 </ul>
             </div>
         </section>
@@ -524,7 +498,7 @@
             <div class="projects-grid">
                 <div class="project-card">
                     <h3>Funeral Home POS & CRM</h3>
-                    <p>An end-to-end desktop management solution built to streamline point-of-sale operations, digitizing paper-based workflows and reducing transaction times drastically.</p>
+                    <p>A comprehensive desktop management solution handling complex point-of-sale operations. By digitizing previously paper-based workflows, transaction processing times were slashed.</p>
                     <div class="project-tech">
                         <span>C#</span>
                         <span>SQL Server</span>
@@ -534,7 +508,7 @@
 
                 <div class="project-card">
                     <h3>Banking Chatbot Integration</h3>
-                    <p>An automated conversational assistant built for a major financial institution (Banesco), providing self-service flows for clients and reducing tier-1 support loads.</p>
+                    <p>An automated conversational assistant tailored for Banesco. Providing self-service account management flows directly to users, which successfully lowered tier-1 support volumes.</p>
                     <div class="project-tech">
                         <span>.NET</span>
                         <span>REST APIs</span>
@@ -544,7 +518,7 @@
 
                 <div class="project-card">
                     <h3>Aviation Maintenance Toolkit</h3>
-                    <p>Internal optimization software created for Aeroman to track maintenance teams, improving cross-department reporting and operational efficiency.</p>
+                    <p>A custom internal dashboard built for Aeroman to streamline how maintenance teams assign and track heavy aircraft tasks. Increased day-to-day operational visibility for floor managers.</p>
                     <div class="project-tech">
                         <span>C# MVC</span>
                         <span>Azure</span>
@@ -554,7 +528,7 @@
 
                 <div class="project-card">
                     <h3>Media Microservices</h3>
-                    <p>A distributed backend solution designed to handle and process large-scale image uploads concurrently, supporting a high-traffic photography sharing site.</p>
+                    <p>Wrote the backend processing nodes for high-traffic photography sharing sites. Built in Go, the cluster easily handles concurrent heavy image uploads and long-lived connection streams.</p>
                     <div class="project-tech">
                         <span>Golang</span>
                         <span>Microservices</span>
